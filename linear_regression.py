@@ -4,6 +4,7 @@ from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 from plotly.graph_objs import Contours, Scatter
 
 from compute_cost import compute_cost
+from gradient_descent import gradient_descent
 
 
 # ====================== Plot the data from data1 ======================
@@ -12,7 +13,8 @@ training_set = np.loadtxt('data1.txt', delimiter=',')
 x = training_set[:,0]
 y = training_set[:,1]
 
-plot([Scatter(x=x, y=y, mode='markers')], filename='data1.html')
+training_set_scatter = Scatter(x=x, y=y, mode='markers')
+plot([training_set_scatter], filename='data1.html')
 
 
 # ====================== Cost Function ======================
@@ -34,8 +36,16 @@ J = compute_cost(X, y, np.array([[-1], [2]]))
 print('With theta = [[-1], [2]]\nCost computed = %.2f\n' % J)
 print('Expected cost value: 54.24\n')
 
-raw_input("Press Enter to continue\n")
+raw_input('Press Enter to continue\n')
 
 
 # ====================== Gradient Descent ======================
+
+print('\nRunning Gradient Descent ...\n')
+
+theta = gradient_descent(X, y, theta, alpha, iterations)
+
+print('Theta found by gradient descent:\n')
+print(theta)
+print('\nExpected theta values: [[-3.6303], [1.1664]]\n\n')
 
