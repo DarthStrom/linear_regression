@@ -1,12 +1,11 @@
 import numpy as np
 import plotly.plotly as py
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-from plotly.graph_objs import *
+from plotly.graph_objs import Contours, Scatter
 
-x = np.random.randn(2000)
-y = np.random.randn(2000)
+# Plot the data from data1
+training_set = np.loadtxt('data1.txt', delimiter=',')
+xs = training_set[:,0]
+ys = training_set[:,1]
 
-plot([Histogram2dContour(x=x, y=y, contours=Contours(coloring='heatmap'))],
-      show_link=False,
-      filename='otherplot.html')
-
+plot([Scatter(x=xs, y=ys, mode='markers')], filename='data1.html')
