@@ -5,13 +5,14 @@ from plotly.graph_objs import Contours, Scatter
 
 from compute_cost import compute_cost
 from gradient_descent import gradient_descent
+from pause import pause
 
 
 # ====================== Plot the data from data1 ======================
 
 training_set = np.loadtxt('data1.txt', delimiter=',')
-x = training_set[:,0]
-y = training_set[:,1]
+x = training_set[:, 0]
+y = training_set[:, 1]
 
 training_set_scatter = Scatter(x=x, y=y, mode='markers')
 plot([training_set_scatter], filename='data1.html')
@@ -19,8 +20,7 @@ plot([training_set_scatter], filename='data1.html')
 
 # ====================== Cost Function ======================
 
-x = np.stack((np.ones(y.shape), x), axis=1)
-X = np.matrix(x)
+X = np.stack((np.ones(y.shape), x), axis=1)
 theta = np.zeros((2, 1))
 
 iterations = 1500
@@ -36,7 +36,7 @@ J = compute_cost(X, y, np.array([[-1], [2]]))
 print('With theta = [[-1], [2]]\nCost computed = %.2f\n' % J)
 print('Expected cost value: 54.24\n')
 
-raw_input('Press Enter to continue\n')
+pause()
 
 
 # ====================== Gradient Descent ======================
@@ -49,3 +49,7 @@ print('Theta found by gradient descent:\n')
 print(theta)
 print('\nExpected theta values: [[-3.6303], [1.1664]]\n\n')
 
+pause()
+
+linear_fit = Scatter(x=X[:, 1], y=(X.dot(theta)).flatten())
+plot([training_set_scatter, linear_fit], filename='linear-fit.html')
