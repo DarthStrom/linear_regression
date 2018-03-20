@@ -17,6 +17,8 @@ y = training_set[:, 1]
 training_set_scatter = Scatter(x=x, y=y, mode='markers')
 plot([training_set_scatter], filename='data1.html')
 
+pause()
+
 
 # ====================== Cost Function ======================
 
@@ -30,11 +32,9 @@ print('\nTesting the cost function ...\n')
 
 J = compute_cost(X, y, theta)
 print('With theta = [[0], [0]]\nCost computed = %.2f\n' % J)
-print('Expected cost value: 32.07\n')
 
 J = compute_cost(X, y, np.array([[-1], [2]]))
 print('With theta = [[-1], [2]]\nCost computed = %.2f\n' % J)
-print('Expected cost value: 54.24\n')
 
 pause()
 
@@ -47,9 +47,22 @@ theta = gradient_descent(X, y, theta, alpha, iterations)
 
 print('Theta found by gradient descent:\n')
 print(theta)
-print('\nExpected theta values: [[-3.6303], [1.1664]]\n\n')
+
+J = compute_cost(X, y, theta)
+print('Cost computed = %.2f\n' % J)
 
 pause()
 
 linear_fit = Scatter(x=X[:, 1], y=(X.dot(theta)).flatten())
 plot([training_set_scatter, linear_fit], filename='linear-fit.html')
+
+pause()
+
+prediction = np.array([1, 14]).dot(theta)
+print('For x=14, we predict y=%.2f\n' % prediction)
+prediction = np.array([1, 42]).dot(theta)
+print('For x=42, we predict y=%.2f\n' % prediction)
+
+pause()
+
+
