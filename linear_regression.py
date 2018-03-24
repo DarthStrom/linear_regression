@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.plotly as py
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-from plotly.graph_objs import Contours, Scatter
+from plotly.graph_objs import Contours, Scatter, Surface
 
 from compute_cost import compute_cost
 from gradient_descent import gradient_descent
@@ -66,3 +66,23 @@ print('For x=42, we predict y=%.2f\n' % prediction)
 pause()
 
 
+# ====================== Visualizing the Cost Function ======================
+
+print('Visualizing the Cost Function')
+
+theta0_vals = np.arange(-10, 10, 0.2)
+theta1_vals = np.arange(-1, 4, 0.05)
+
+J_vals = np.zeros((theta0_vals.size, theta1_vals.size))
+
+for i in range(0, theta0_vals.size):
+    for j in range(0, theta1_vals.size):
+        theta = np.stack((theta0_vals[i], theta1_vals[j]))
+        J_vals[i][j] = compute_cost(X, y, theta).transpose()
+
+cost_surface = Surface(
+    x=theta0_vals,
+    y=theta1_vals,
+    z=J_vals)
+
+plot([cost_surface], filename='cost_surface.html')
