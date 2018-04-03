@@ -53,7 +53,8 @@ print('Cost computed = %.2f\n' % J)
 
 pause()
 
-linear_fit = Scatter(x=X[:, 1], y=(X.dot(theta)).flatten())
+y_list = (X.dot(theta)).flatten()
+linear_fit = Scatter(x=X[:, 1], y=y_list)
 plot([training_set_scatter, linear_fit], filename='linear-fit.html')
 
 pause()
